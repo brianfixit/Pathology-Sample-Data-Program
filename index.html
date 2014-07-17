@@ -61,21 +61,42 @@
     </div>
 
     <div class="container theme-showcase" role="main">
-
-      <!-- Main jumbotron will contain our SVG graphics -->
+<div class="row">
+  <div class="col-md-7"><!-- Main jumbotron will contain our SVG graphics -->
       <div id="canvas" class="jumbotron">
-        <h1>Total Number Of Medals By Country</h1>
+        <h2>Medals By Country</h2>
                
-      </div>
+      </div></div>
+  <div class="col-md-5"><div class="jumbotron" style="height: 650px; overflow:scroll;">
+  <h3>Country Medals As Table</h3>
+            <table class="table table-striped">
+                        <thead>
+              <tr>
+                <th>Country</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Bronze</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="countrydata" >
+            </tbody>
+          </table>
+  
+  
+  
+  </div></div>
+</div> 
+      
 <div id="canvas2" class="jumbotron">
-        <h1>Sports by number of bronze medals</h1>
+        <h1>Sports By Number Of Bronze Medals</h1>
                
       </div>
      <div class="page-header">
         <h1>Medals for 22-29 year olds sorted descending by total</h1>
       </div>
 
-        <div  class="col-sm-12">
+        <div  class="col-sm-12"   style="height: 350px; overflow:scroll;"> 
           <table class="table table-striped">
                         <thead>
               <tr>

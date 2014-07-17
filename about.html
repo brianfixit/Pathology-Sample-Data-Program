@@ -71,7 +71,7 @@
               <h3 class="panel-title">How This Code Works</h3>
             </div>
             <div class="panel-body">
-              <h3>This program uses a variety of javascript libraries and functions to turn sample JSON data into a series of preformmated arrays that are used as the data sources for the D3 visualization libraries.</h3>
+              <h3>This program uses a variety of JavaScript libraries and functions to turn sample JSON data into a series of pre-formatted arrays that are used as the data sources for the D3 visualization libraries.</h3>
              <div class="alert alert-warning" role="alert">
         <h3>The Operations Happen In The Following Order</h3>
       </div>
@@ -82,7 +82,7 @@
               <li><h4>The YQL query returns an XML object which is parsed to retrieve our sample data.</h4> </li>
               <li><h4>The resulting string is processed so the fields are given in standard JSON format to avoid parse errors.</h4></li>
               <li><h4>Problem data is normalized ( so the file would parse cleanly )</h4></li>
-              <ul><li><h5>There were three records for which the age field was ommitted, these values were replaced with zero's</h5></li>
+              <ul><li><h5>There were three records for which the age field was omitted, these values were replaced with zero's</h5></li>
                   <li><h5>The entire result string was processed to insert the requisite quotation marks so that all data was of the form "key":value</h5></li>
                   <li><h5>I used JSONLint to verify the structure of the result string and it indicated the error.</h5></li>
                    <li><h5>An array identifier and a trailing ] are added so the string matches the formatting of a JSON Array</h5></li>
@@ -96,21 +96,22 @@
                   <li><h5>If the athlete is between the ages of 22 and 29, the function AddTwentyMedals is called to capture that information </h5></li>
                   <li><h5>For all three functions the process is essentially the same</h5></li>
                   <ul>
+                  <hr />
                   <li><h5>Check to see if the target array is empty, if so create a new entry as an associative array and store the first record</h5></li>
                   <li><h5>For subsequent records , iterate through the array and look to see if the value in question already exists</h5></li>
                   <li><h5>If the value exists update the required fields and exit</h5></li>
                   <li><h5>If the value we are looking for does not exits , create a new record and push it onto the array</h5></li>
-                               
+                   <hr />            
                   </ul>
-                    <li><h5>The arrays are sorted using a custom compare function so that data is in the order required</h5></li>
+                    <li><h5>The arrays are sorted using a custom compare function so that the data is in the order required</h5></li>
                   
               
               </ul>
               <li><h4>Once the data has been completely processed, the populated arrays are used to create either SVG graphics (in the case of the first two problems) or to create rows in an HTML table for the third question.</h4></li>
               <ul>
-              <li>The D3 code in the page is bound to the appropriate array and the enter() method creates the objects associatted with the data set</li>
+              <li>The D3 code in the page is bound to the appropriate array and the enter() method creates the objects associated with the data set</li>
               <li>Items are scaled and labeled </li>
-              <li>In the case of the bar graph a transform is applied to rotate the elements 90 degrees and move the coordinate base to the required values</li>
+              <li>In the case of the bar graph a transform is applied to rotate the elements -90 degrees and move the coordinate base to the required values</li>
               <li>D3.entries() is used to target the individual data sets and deliver key value pairs for use</li>
               </ul>
               <li><h4>The SVG graphics are appended to pre-existing div elements in the HTML called #canvas and #canvas2</h4></li>
@@ -135,14 +136,14 @@
         <h3>The main problem was retrieving the data</h3>
       </div>
               <hr />
-              <h3>Neither JQuery nor javascript would allow me to make a standard ajax call and get the JSONP data</h3>
+              <h3>Neither JQuery nor JavaScript would allow me to make a standard ajax call and get the JSONP data</h3>
               <ol>
               <li><h4>At each attempt I either ran into a cross site origin policy condition or an error</h4></li>
               <li><h4>For each attempt that was made the server was returning html/text and not the appropriate type for JSON (according to the console and errors).</h4> </li>
               <li><h4>I tried CORPROXY , ANYORIGIN and several other CORS systems to no avail</h4></li>
               <li><h4>YQL proved an elegant solution to the problem, albeit at the cost of a processing delay</h4></li>
               <li><h4>The result set data contained three records that had ages ommited which prevents JSON.parse from completing</h4></li>
-              <li><h4>Given the complex calculations that are required for the pie chart I was able to get labels to appends tothe graph to indicate each counrty but was unable to find a successful combination of transform values that wold allow me to rotate the labels 90 degrees yet keep their respective positions on the graph</h4></li>
+              <li><h4>Given the complex calculations that are required for the pie chart I was able to get labels to appends to the graph to indicate each counrty but was unable to find a successful combination of transform values that wold allow me to rotate the labels 90 degrees yet keep their respective positions on the graph</h4></li>
               <li><h4>Data for the medals for athletes ages 22 to 29 may be incomplete as the true age is not known for the three cases in the sample data which did not have ages given</h4></li>
               <li><h4>Despite plenty of information about using D3 against an simple array, I found that associate arrays required me to call d3.entries to be able to work with the key / value pairs as required.</h4></li>
               <li><h4><b>Trying to code complex functions , arrays and SVG graphics is not easy to do while being a parent to little girls...</b> </h4></li>
@@ -167,12 +168,12 @@
               <ol>
               <li><h4>I am a very fast learner, this exercise had a steep learning curve but I was able to deliver the required product</h4></li>
               <li><h4>BS-CIS , A formal education in computer science with additional classes in advanced software engineering and distributed computing</h4> </li>
-              <li><h4>I hold one of the highest private security cerifications available - Certified Information Systems Security Professional (hence I use not to use .eval()) plus I hold the MCSA Sec+ A+ and Multiple MCP's</h4></li>
+              <li><h4>I hold one of the highest private security certifications available - Certified Information Systems Security Professional (hence I use not to use .eval() and blindly pass it code from other sites) plus I hold the MCSA Sec+ A+ and Multiple MCP's</h4></li>
               <li><h4>I have a wide variety of systems and network architecture and naming mechanism knowledge</h4></li>
               <li><h4>I employ a logical and systematic approach to solving complex challenges</h4></li>
               <li><h4>I am comfortable working under pressure and typically excel when challenged</h4></li>
               <li><h4>I have a background in biology, bioinformatics, and genetics and have supported CAP compliant labs </h4></li>
-              <li><h4>I dont give up easily!</h4></li>
+              <li><h4>I don't give up easily!(As I hope this project would indicate)</h4></li>
                         
               </ol>
               </ul>

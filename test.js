@@ -15,19 +15,6 @@ function bronzeMedalBySport(sport , numbronze)
  	this.numbronze = numbronze;
 }
 
-    
-
-    
-    
-/*function bronzeMedalObject (athlete, age , country, sport , numbronze)
-{
-	this.athlete = athlete;
-	this.age = age;
-	this.country = country;
-	this.sport = sport;
-	this.numbronze = numbronze;
-}*/
-
 
 function countryObject(country,goldmedals,silvermedals,bronzemedals,totalmedals)
     {
@@ -120,6 +107,22 @@ function tableOutput()
  $( "#q3data" ).append(tbl_body);
 	
 }
+
+function countryTableOutput(inputArray)
+{
+         var tbl_body = "";
+	    $.each(inputArray, function() {
+	        var tbl_row = "";
+	        $.each(this, function(k , v) {
+	            tbl_row += "<td>"+v+"</td>";
+	        })
+	        tbl_body += "<tr>"+tbl_row+"</tr>";                 
+	    })
+	  
+ $( "#countrydata" ).append(tbl_body);
+	
+}
+
 
 function AddTwentyMedals(sport, goldmedals, silvermedals, bronzemedals,twentyMedalsTotal)
 {
@@ -355,9 +358,9 @@ function addMedalsToCountry(country,gold,silver,bronze)
 
 function drawPieChartV2(inputArray)
 {
-    var canvasWidth = 650, //width
-    canvasHeight = 650,   //height
-    outerRadius = 250,   //radius
+    var canvasWidth = 550, //width
+    canvasHeight = 550,   //height
+    outerRadius = 200,   //radius
     color = d3.scale.category20(); //builtin range of colors
 
   var dataSet = inputArray;
@@ -431,35 +434,6 @@ function drawPieChartV2(inputArray)
 
 
 
-function getJSONData() 
-
-    {
-		     // Due to the fact that the server was returning Text / HTML I had to use the other method for pulling the data however
-			 // I left the code as an example of processing via JSONP
-       		 console.log('beginning get data routine');
-		        var parentDiv = document.getElementById('results');
-				//$(document).ready(function(){
-                $.ajax({
-                    url: 'https://apps.mathbiol.org/sdata/',
-                    dataType: 'jsonp',
-                    success: function(dataWeGotViaJsonp)
-					{
-                        var text = '';
-                        var len = dataWeGotViaJsonp.length;
-                       
-					    for(var i=0;i<len;i++)
-						
-						{
-							
-                            var ThisMedalEntry = dataWeGotViaJsonp[i];
-                            var resultString = "<p>" + " Name: " + ThisMedalEntry.athlete + " | " + " Age: " + ThisMedalEntry.age + " | " + " Country " + ThisMedalEntry.country + " | " +                            " Year: " + ThisMedalEntry.year + " | "  + " Sport: " + ThisMedalEntry.sport + " Gold: " + ThisMedalEntry.goldmedals + " Silver: " +                	  ThisMedalEntry.silvermedals + " Bronze: " + item.bronzemedals + "</p>" + "<br /> ";
-	                        }
-                        $('#results').html(resultString);
-                    }
-                });
-				};
-      			
-
     function getSampleData() {
 
         var q = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22https%3A%2F%2Fapps.mathbiol.org%2Fsdata%2F%22%20and%20xpath%3D%22%2F%2Fbody%22&diagnostics=true";
@@ -530,7 +504,7 @@ function getJSONData()
 				   
 					  medalArray = theArray;
 					  // sort the array of country medals according to biggest to smallest
-                      countryArray = reverseSortByKey(countryArray, 'totalmedals');
+                      countryArray = reverseSortByKey(countryArray, 'totalmedals');       countryTableOutput(countryArray);
                       // sort the bronze medal array by the total number of bronze medals
                       bronzeArray = reverseSortByKey(bronzeArray, 'numbronze');
                       //sort our twenty array for creating the html table
@@ -541,6 +515,7 @@ function getJSONData()
                       drawBarGraphV2(bronzeArray);
                       //target the table body which already exists with our header row in the html and append the new rows
                       tableOutput();
+               
                          return;
                       } 
 				
