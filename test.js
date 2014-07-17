@@ -358,12 +358,13 @@ function addMedalsToCountry(country,gold,silver,bronze)
 
 function drawPieChartV2(inputArray)
 {
-    var canvasWidth = 550, //width
+    var canvasWidth = 575, //width
     canvasHeight = 550,   //height
     outerRadius = 200,   //radius
     color = d3.scale.category20(); //builtin range of colors
 
   var dataSet = inputArray;
+  var labelLimit = 25; //this value will determine when we want to stop showing labels as they will overlap on our pie chart
   
   var vis = d3.select("#canvas")
     .append("svg:svg") //create the SVG element inside the <body>
@@ -408,11 +409,11 @@ function drawPieChartV2(inputArray)
     .attr("text-anchor", "middle") //center the text on it's origin
     .style("fill", "black")
     .style("font", "bold 14px Arial")
-    .text(function(d, i) { return dataSet[i].country; })//get the label from our original data array
-   ; 
-
+    .text(function(d, i) { return dataSet[i].country;   })//get the label from our original data array
+    .style("visibility", function(d,i) {  return (i >= labelLimit) ? "hidden" : "visible";   });
+   
   // Add a magnitude value to the larger arcs, translated to the arc centroid and rotated.
-  arcs.filter(function(d) { return d.endAngle - d.startAngle > .03; }).append("svg:text")
+  arcs.filter(function(d) { return d.endAngle - d.startAngle > .028; }).append("svg:text")
     .attr("dy", ".35em")
     .attr("text-anchor", "middle")
     //.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
