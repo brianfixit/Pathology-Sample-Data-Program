@@ -358,9 +358,9 @@ function addMedalsToCountry(country,gold,silver,bronze)
 
 function drawPieChartV2(inputArray)
 {
-    var canvasWidth = 575, //width
+    var canvasWidth = 550, //width
     canvasHeight = 550,   //height
-    outerRadius = 200,   //radius
+    outerRadius = 185,   //radius
     color = d3.scale.category20(); //builtin range of colors
 
   var dataSet = inputArray;
