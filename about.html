@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This document is for satisfying the requirements of a programming task which uses data from a sample URL containing json formatted data of 2012 olympic athlete participants.">
+    <meta name="author" content="Brian Harris, BS:CIS,CISSP,MCSA,Sec+,A+ ,MCP">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Brian Harris Submission For Pathology Information Analyst Position</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/theme/theme.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <style id="holderjs-style" type="text/css"></style></head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brian Harris - Submission For UAB Pathology Information Analyst</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="about.html">How This Works</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Libraries Used<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="http://d3js.org/">D3 - Data Driven Documents</a></li>
+                <li><a href="http://getbootstrap.com/">BootStrap </a></li>
+                <li><a href="http://jquery.com/">JQuery</a></li>
+          <!--       <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="http://getbootstrap.com/examples/theme/#">Separated link</a></li>
+                <li><a href="http://getbootstrap.com/examples/theme/#">One more separated link</a></li> -->
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container theme-showcase" role="main">
+
+
+
+     
+        <div  class="col-sm-12">
+            <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">How This Code Works</h3>
+            </div>
+            <div class="panel-body">
+              <h3>This program uses a variety of javascript libraries and functions to turn sample JSON data into a series of preformmated arrays that are used as the data sources for the D3 visualization libraries.</h3>
+             <div class="alert alert-warning" role="alert">
+        <h3>The Operations Happen In The Following Order</h3>
+      </div>
+             
+              <hr />
+              <ol>
+              <li><h4>Data is loaded using Yahoo Query Language to get the body element of the page hosting the sample data.</h4></li>
+              <li><h4>The YQL query returns an XML object which is parsed to retrieve our sample data.</h4> </li>
+              <li><h4>The resulting string is processed so the fields are given in standard JSON format to avoid parse errors.</h4></li>
+              <li><h4>Problem data is normalized ( so the file would parse cleanly )</h4></li>
+              <ul><li><h5>There were three records for which the age field was ommitted, these values were replaced with zero's</h5></li>
+                  <li><h5>The entire result string was processed to insert the requisite quotation marks so that all data was of the form "key":value</h5></li>
+                  <li><h5>I used JSONLint to verify the structure of the result string and it indicated the error.</h5></li>
+                   <li><h5>An array identifier and a trailing ] are added so the string matches the formatting of a JSON Array</h5></li>
+                    <li><h5>The JSON Array is stored in a variable and used for iteration to harvest the required data to arrays</h5></li>
+                              
+              </ul>
+              <li><h4>The result set is traversed with a for loop and each individual record is inspected</h4></li>
+              <li><h4>As the data is processed, functions are called to capture the total medals by country, total bronze medals by sport and lastly the medals for athletes between 22 and 29</h4></li>
+                  <ul><li><h5>For each medal that we come across the main loop calls the methods addMedalsToCountry which tracks how many medals and which country</h5></li>
+                  <li><h5>If a bronze medal is encountered we call addBronzeMedalsBySport to capture both the number of bronze medals and for which sport</h5></li>
+                  <li><h5>If the athlete is between the ages of 22 and 29, the function AddTwentyMedals is called to capture that information </h5></li>
+                  <li><h5>For all three functions the process is essentially the same</h5></li>
+                  <ul>
+                  <li><h5>Check to see if the target array is empty, if so create a new entry as an associative array and store the first record</h5></li>
+                  <li><h5>For subsequent records , iterate through the array and look to see if the value in question already exists</h5></li>
+                  <li><h5>If the value exists update the required fields and exit</h5></li>
+                  <li><h5>If the value we are looking for does not exits , create a new record and push it onto the array</h5></li>
+                               
+                  </ul>
+                    <li><h5>The arrays are sorted using a custom compare function so that data is in the order required</h5></li>
+                  
+              
+              </ul>
+              <li><h4>Once the data has been completely processed, the populated arrays are used to create either SVG graphics (in the case of the first two problems) or to create rows in an HTML table for the third question.</h4></li>
+              <ul>
+              <li>The D3 code in the page is bound to the appropriate array and the enter() method creates the objects associatted with the data set</li>
+              <li>Items are scaled and labeled </li>
+              <li>In the case of the bar graph a transform is applied to rotate the elements 90 degrees and move the coordinate base to the required values</li>
+              <li>D3.entries() is used to target the individual data sets and deliver key value pairs for use</li>
+              </ul>
+              <li><h4>The SVG graphics are appended to pre-existing div elements in the HTML called #canvas and #canvas2</h4></li>
+              <li><h4>Twitter BootStrap is used to provide the visual theme for the project and the associated divs</h4></li>
+              
+              </ol>
+              
+              
+              
+              
+              
+              </ul>
+            </div>
+          </div>
+          
+                    <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Problems / Challenges / Opportunities</h3>
+            </div>
+            <div class="panel-body">
+                 <div class="alert alert-danger" role="alert">
+        <h3>The main problem was retrieving the data</h3>
+      </div>
+              <hr />
+              <h3>Neither JQuery nor javascript would allow me to make a standard ajax call and get the JSONP data</h3>
+              <ol>
+              <li><h4>At each attempt I either ran into a cross site origin policy condition or an error</h4></li>
+              <li><h4>For each attempt that was made the server was returning html/text and not the appropriate type for JSON (according to the console and errors).</h4> </li>
+              <li><h4>I tried CORPROXY , ANYORIGIN and several other CORS systems to no avail</h4></li>
+              <li><h4>YQL proved an elegant solution to the problem, albeit at the cost of a processing delay</h4></li>
+              <li><h4>The result set data contained three records that had ages ommited which prevents JSON.parse from completing</h4></li>
+              <li><h4>Given the complex calculations that are required for the pie chart I was able to get labels to appends tothe graph to indicate each counrty but was unable to find a successful combination of transform values that wold allow me to rotate the labels 90 degrees yet keep their respective positions on the graph</h4></li>
+              <li><h4>Data for the medals for athletes ages 22 to 29 may be incomplete as the true age is not known for the three cases in the sample data which did not have ages given</h4></li>
+              <li><h4>Despite plenty of information about using D3 against an simple array, I found that associate arrays required me to call d3.entries to be able to work with the key / value pairs as required.</h4></li>
+              <li><h4><b>Trying to code complex functions , arrays and SVG graphics is not easy to do while being a parent to little girls...</b> </h4></li>
+              <li><h4>Despite the challenges involved, I enjoyed this exercise, <em>I live to solve problems</em> </h4></li>
+              
+              </ol>
+              </ul>
+            </div>
+            </div>
+            
+            <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Why You Should Hire Me!!!!</h3>
+            </div>
+            <div class="panel-body">
+            
+                      <div class="alert alert-info" role="alert">
+        <h3>Over twenty years of solving complex technical issues across all domains of information technology</h3>
+      </div>
+              <hr />
+              <h3>This is just the beginning...</h3>
+              <ol>
+              <li><h4>I am a very fast learner, this exercise had a steep learning curve but I was able to deliver the required product</h4></li>
+              <li><h4>BS-CIS , A formal education in computer science with additional classes in advanced software engineering and distributed computing</h4> </li>
+              <li><h4>I hold one of the highest private security cerifications available - Certified Information Systems Security Professional (hence I use not to use .eval()) plus I hold the MCSA Sec+ A+ and Multiple MCP's</h4></li>
+              <li><h4>I have a wide variety of systems and network architecture and naming mechanism knowledge</h4></li>
+              <li><h4>I employ a logical and systematic approach to solving complex challenges</h4></li>
+              <li><h4>I am comfortable working under pressure and typically excel when challenged</h4></li>
+              <li><h4>I have a background in biology, bioinformatics, and genetics and have supported CAP compliant labs </h4></li>
+              <li><h4>I dont give up easily!</h4></li>
+                        
+              </ol>
+              </ul>
+            </div>
+            </div>
+            
+            
+            
+          </div>
+          
+          
+          
+        </div>
+      </div>
+
+      <div id="results"></div>
+        
+
+  
+    <!-- Placed at the end of the document so the pages load faster -->
+  
+    <script src="./Bootstrap_files/jquery.min.js"></script>
+    <script src="./Bootstrap_files/bootstrap.min.js"></script>
+    <script src="./Bootstrap_files/docs.min.js"></script>
+
+  
+
+</body></html>
