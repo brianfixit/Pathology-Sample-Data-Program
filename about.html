@@ -23,9 +23,19 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <style id="holderjs-style" type="text/css"></style></head>
+  <style id="holderjs-style" type="text/css"></style>
+  <script type="text/javascript">
+$(document).ready(function(){ 
+    $("#myTab a").click(function(e){
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+});
+</script>
+  <link href="myStyle.css" rel="stylesheet"> 
+  </head>
 
-  <body role="document">
+  <body role="document"  id="mainpagecontainer">
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -61,27 +71,41 @@
     </div>
 
     <div class="container theme-showcase" role="main">
-
-
-
-     
-        <div  class="col-sm-12">
+ <div class="col-md-12">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a href="#sectionA">How this code works</a></li>
+        <li><a href="#sectionB">Problems and challenges</a></li>
+        <li><a href="#sectionC">About the author</a></li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Code used in this project <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#dropdown1">Main loop of program and acquiring sample data</a></li>
+                <li><a href="#dropdown2">Function Used For The Calculation Of Country And Medal Data</a></li>
+                <li><a href="#dropdown3">SVG Functions</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="sectionA" class="tab-pane fade in active">
             <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title">How This Code Works</h3>
+              <h3 class="panel-title">A Detailed Overview Of How This Web Page Is Generated</h3>
             </div>
-            <div class="panel-body">
-              <h3>This program uses a variety of JavaScript libraries and functions to turn sample JSON data into a series of pre-formatted arrays that are used as the data sources for the D3 visualization libraries.</h3>
-             <div class="alert alert-warning" role="alert">
-        <h3>The Operations Happen In The Following Order</h3>
-      </div>
+         
+          
+               <div class="panel-body">
+                  <div class="alert alert-warning" role="alert">
+        <h3>The Operations Happen In This Order</h3></div>
+            
+              <h4>This program uses a D3 to turn sample JSON data into arrays that are used as the data sources for creating SVG graphics.</h4>
+       
              
-              <hr />
+              
               <ol>
-              <li><h4>Data is loaded using Yahoo Query Language to get the body element of the page hosting the sample data.</h4></li>
-              <li><h4>The YQL query returns an XML object which is parsed to retrieve our sample data.</h4> </li>
-              <li><h4>The resulting string is processed so the fields are given in standard JSON format to avoid parse errors.</h4></li>
-              <li><h4>Problem data is normalized ( so the file would parse cleanly )</h4></li>
+              <li><h5>Data is loaded using Yahoo Query Language to get the body element of the page hosting the sample data.</h5></li>
+              <li><h5>The YQL query returns an XML object which is parsed to retrieve our sample data.</h5> </li>
+              <li><h5>The resulting string is processed so the fields are given in standard JSON format to avoid parse errors.</h5></li>
+              <li><h5>Problem data is normalized ( so the file would parse cleanly )</h5></li>
               <ul><li><h5>There were three records for which the age field was omitted, these values were replaced with zero's</h5></li>
                   <li><h5>The entire result string was processed to insert the requisite quotation marks so that all data was of the form "key":value</h5></li>
                   <li><h5>I used JSONLint to verify the structure of the result string and it indicated the error.</h5></li>
@@ -89,33 +113,33 @@
                     <li><h5>The JSON Array is stored in a variable and used for iteration to harvest the required data to arrays</h5></li>
                               
               </ul>
-              <li><h4>The result set is traversed with a for loop and each individual record is inspected</h4></li>
-              <li><h4>As the data is processed, functions are called to capture the total medals by country, total bronze medals by sport and lastly the medals for athletes between 22 and 29</h4></li>
+              <li><h5>The result set is traversed with a for loop and each individual record is inspected</h5></li>
+              <li><h5>As the data is processed, functions are called to capture the total medals by country, total bronze medals by sport and lastly the medals for athletes between 22 and 29</h5></li>
                   <ul><li><h5>For each medal that we come across the main loop calls the methods addMedalsToCountry which tracks how many medals and which country</h5></li>
                   <li><h5>If a bronze medal is encountered we call addBronzeMedalsBySport to capture both the number of bronze medals and for which sport</h5></li>
                   <li><h5>If the athlete is between the ages of 22 and 29, the function AddTwentyMedals is called to capture that information </h5></li>
                   <li><h5>For all three functions the process is essentially the same</h5></li>
                   <ul>
-                  <hr />
+                  
                   <li><h5>Check to see if the target array is empty, if so create a new entry as an associative array and store the first record</h5></li>
                   <li><h5>For subsequent records , iterate through the array and look to see if the value in question already exists</h5></li>
                   <li><h5>If the value exists update the required fields and exit</h5></li>
                   <li><h5>If the value we are looking for does not exits , create a new record and push it onto the array</h5></li>
-                   <hr />            
+                              
                   </ul>
                     <li><h5>The arrays are sorted using a custom compare function so that the data is in the order required</h5></li>
                   
               
               </ul>
-              <li><h4>Once the data has been completely processed, the populated arrays are used to create either SVG graphics (in the case of the first two problems) or to create rows in an HTML table for the third question.</h4></li>
+              <li><h5>Once the data has been completely processed, the populated arrays are used to create either SVG graphics (in the case of the first two problems) or to create rows in an HTML table for the third question.</h5></li>
               <ul>
               <li>The D3 code in the page is bound to the appropriate array and the enter() method creates the objects associated with the data set</li>
               <li>Items are scaled and labeled </li>
               <li>In the case of the bar graph a transform is applied to rotate the elements -90 degrees and move the coordinate base to the required values</li>
               <li>D3.entries() is used to target the individual data sets and deliver key value pairs for use</li>
               </ul>
-              <li><h4>The SVG graphics are appended to pre-existing div elements in the HTML called #canvas and #canvas2</h4></li>
-              <li><h4>Twitter BootStrap is used to provide the visual theme for the project and the associated divs</h4></li>
+              <li><h5>The SVG graphics are appended to pre-existing div elements in the HTML called #canvas and #canvas2</h5></li>
+              <li><h5>Twitter BootStrap is used to provide the visual theme for the project and the associated divs</h5></li>
               
               </ol>
               
@@ -125,21 +149,21 @@
               
               </ul>
             </div>
-          </div>
-          
-                    <div class="panel panel-success">
+            </div>
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title">Problems / Challenges / Opportunities</h3>
+              <h3 class="panel-title">Problems , Challenges & Opportunities Faced During This Exercise</h3>
             </div>
             <div class="panel-body">
                  <div class="alert alert-danger" role="alert">
-        <h3>The main problem was retrieving the data</h3>
+        <h3>The Main Problem Was Retrieving the Data</h3>
       </div>
-              <hr />
-              <h3>Neither JQuery nor JavaScript would allow me to make a standard ajax call and get the JSONP data</h3>
+              <h4>Neither JQuery nor JavaScript would allow me to make a standard ajax call and get the JSONP data</h4>
               <ol>
               <li><h5>At each attempt I either ran into a cross site origin policy condition or an error</h5></li>
-              <li><h5>For each attempt that was made the server was returning html/text and not the appropriate type for JSON (according to the console and errors).</h5> </li>
+              <li><h5>For each attempt that was made the server was returning html/text and not the appropriate type for JSON (according to the console and errors, this was my best source of information without having access to the server or knowing any more formal information than what was contained within the html page).</h5> </li>
               <li><h5>I tried CORPROXY , ANYORIGIN and several other CORS systems to no avail</h5></li>
               <li><h5>YQL proved an elegant solution to the problem, albeit at the cost of a processing delay</h5></li>
               <li><h5>The result set data contained three records that had ages omitted which prevents JSON.parse from completing</h5></li>
@@ -153,7 +177,8 @@
               </ul>
             </div>
             </div>
-            
+        </div>
+                <div id="sectionC" class="tab-pane fade">
             <div class="panel panel-success">
             <div class="panel-heading">
               <h3 class="panel-title">Why You Should Hire Me!!!!</h3>
@@ -161,10 +186,10 @@
             <div class="panel-body">
             
                       <div class="alert alert-info" role="alert">
-        <h3>Over twenty years of solving complex technical issues across all domains of information technology</h3>
+        <h3>Over Twenty Years of Solving Complex Technical Issues Across All Domains of Information Technology</h3>
       </div>
               <hr />
-              <h3>This is just the beginning...</h3>
+              <h4>This is just the beginning...</h4>
               <ol>
               <li><h5>I am a very fast learner, this exercise had a steep learning curve but I was able to deliver the required product</h5></li>
               <li><h5>BS-CIS , A formal education in computer science with additional classes in advanced software engineering and distributed computing</h5> </li>
@@ -179,17 +204,579 @@
               </ul>
             </div>
             </div>
+        </div>
+        
+        
+        
+        
+        <div id="dropdown1" class="tab-pane fade">
+            <h3>Main data acquisition and processing routine</h3>
+            <pre>function getSampleData() {
+
+        var q = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22https%3A%2F%2Fapps.mathbiol.org%2Fsdata%2F%22%20and%20xpath%3D%22%2F%2Fbody%22&diagnostics=true";
+
+        console.log('ESCAPED URL thats used during the jQuery .ajax() and Yahoo Query Language method shown on the next line.');
+        console.info(q);
+
+        $.ajax({
+            type: 'GET',
+            url: q,
+            dataType: 'xml',
+            success: function (data, textStatus) {
+
+                if(data) {
+
+                                   
+					var xmlText = new XMLSerializer().serializeToString(data);
+                    var regExp = /\(([^)]+)\)/;
+					var matches = regExp.exec(xmlText);
+					var JSONPString = "";
+					JSONPString = matches[1];
+					// there are three entries in the input which do not have an age listed and instead have 
+					// age:"" listed instead which then creates an error in the syntax of the JSON array string
+					// so to sanitize that input condition I am going to replace any instances of age:""
+					// with age:00 to maintain the consistent structure of the input. This will also serve as 
+					// a flag for these records later
+					JSONPString = JSONPString.split('age:\"\"').join('age:00');
+					// Now prepare the JSON data to expected formatting
+					JSONPString = JSONPString.split('athlete').join('\"athlete\"');
+					JSONPString = JSONPString.split('age:').join('\"age\":\"');				
+					JSONPString = JSONPString.split(',country').join('\",\"country\"');
+					JSONPString = JSONPString.split('year:').join('\"year\":\"');
+					JSONPString = JSONPString.split(',sport').join('\",\"sport\"');
+					JSONPString = JSONPString.split('goldmedals:').join('\"goldmedals\":');
+					JSONPString = JSONPString.split(',silvermedals:').join(',\"silvermedals\":');
+					JSONPString = JSONPString.split(',bronzemedals:').join(',\"bronzemedals\":');
+					var arrayAdd = '{\"medals\" :';
+					var arrayEnd = '}';
+                   var tempString = arrayAdd + JSONPString + arrayEnd;
+				   JSONPString = tempString;
+				   console.log('Attempting to parse JSON data from the string we harvested from the YQL XML object');
+				   var theArray = [];
+	        		 var jsonData = $.parseJSON(JSONPString);
+				      console.log('Parse Complete');
+ 				      console.log('Begin iterating through harvested data');
+                 for (var i = 0; i < jsonData.medals.length; i++)
+			  {
+                   var medal = jsonData.medals[i];
+               	   var tempMedalObject = {"athlete":medal.athlete,"age":medal.age,"country":medal.country,"year":medal.year,"sport":medal.sport,"goldmedals":medal.gold,"silver":medal.silver,"bronze":medal.bronze};
+				   theArray.push(tempMedalObject);
+				   // for each pass of the array we need to populate our aray of country medals to serve
+				   // as the foundation for the array used to create the SVG graphic for medals by country
+				   addMedalsToCountry(medal.country, medal.goldmedals, medal.silvermedals,medal.bronzemedals);
+				   
+				   if (medal.bronzemedals > 0)
+					   {  // capture this data to our array of bronze medals for question 2
+					   	    addBronzeMedalsBySport(medal.sport, medal.bronzemedals)
+					   }
+				   
+				   if ((medal.age >= 22) && (medal.age <= 29))
+					   { //capture this data for the age ranges listed to track number of medals by sport
+					   var twentyMedalsTotal = medal.goldmedals + medal.silvermedals + medal.bronzemedals;
+					   AddTwentyMedals(medal.sport, medal.goldmedals, medal.silvermedals, medal.bronzemedals,twentyMedalsTotal);
+					   }
+				   
+				   
+                    }
+				   
+					  medalArray = theArray;
+					  // sort the array of country medals according to biggest to smallest
+                      countryArray = reverseSortByKey(countryArray, 'totalmedals');       countryTableOutput(countryArray);
+                      // sort the bronze medal array by the total number of bronze medals
+                      bronzeArray = reverseSortByKey(bronzeArray, 'numbronze');
+                      //sort our twenty array for creating the html table
+                      twentyArray = reverseSortByKey(twentyArray, 'total');
+                      // create the pie chart and add it to our #canvas div
+                      drawPieChartV2(countryArray);
+                      //create the bar graph and add it to our #canvas2 div
+                      drawBarGraphV2(bronzeArray);
+                      //target the table body which already exists with our header row in the html and append the new rows
+                      tableOutput();
+                      drawHeader();
+               
+                         return;
+                      } 
+				
+				else {     console.log("JavaScript error has occured while retrieving sample data .");  return;   }                }
+               });  </pre>
+        </div>
+        <div id="dropdown2" class="tab-pane fade">
+            <h3>Country and Data Related Functions</h3>
+            <pre>function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
+function reverseSortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+    });
+}
+function tableOutput()
+{
+        var counter = 1;
+
+	    var tbl_body = "";
+	    $.each(twentyArray, function() {
+	        var tbl_row = "";
+	        $.each(this, function(k , v) {
+	            tbl_row += "<td>"+v+"</td>";
+	        })
+	        tbl_body += "<tr>"+tbl_row+"</tr>";                 
+	    })
+	  
+ $( "#q3data" ).append(tbl_body);
+	
+}
+
+function countryTableOutput(inputArray)
+{
+         var tbl_body = "";
+	    $.each(inputArray, function() {
+	        var tbl_row = "";
+	        $.each(this, function(k , v) {
+	            tbl_row += "<td>"+v+"</td>";
+	        })
+	        tbl_body += "<tr>"+tbl_row+"</tr>";                 
+	    })
+	  
+ $( "#countrydata" ).append(tbl_body);
+	
+}
+
+
+function AddTwentyMedals(sport, goldmedals, silvermedals, bronzemedals,twentyMedalsTotal)
+{
+   	var totalThisPass = 0; 
+	var tempSport =  sport;
+	var tempgold = parseInt(goldmedals);
+	var tempsilver = parseInt(silvermedals);
+	var tempbronze = parseInt(bronzemedals);
+	var twentymedalstemp = twentyMedalsTotal;
+	// first determine if this is a sport we have already seen , if yes increment the total number of medals 
+	var resultIndex = -1;
+	
+	 
+	if (twentyArray.length > 0)
+	{
+		for ( var i in twentyArray) 
+		{
+			if (twentyArray[i].sport == sport)
+			{
+				resultIndex = i;
+				break;
+			}
+
+			else {   	continue;		}
+			
+
+		} //end for loop
+	} // end if statement
+		
+		else 
+		{
+			// we have not seen any sport before , so we need to create an entry to hold it
+			var twentyMedalBySportObject = {"sport":tempSport,"gold":tempgold,"silver":tempsilver,"bronze":tempbronze,"total":twentymedalstemp};
+			twentyArray.push(twentyMedalBySportObject);
+			twentyArrayRowNum = twentyArrayRowNum+1;
+			return;
+		}
+
+	if ( resultIndex > -1 )
+	{
+	    // the sport we are looking for is already in the array, update the total number of medals to reflect the new medals
+		 	twentyArray[resultIndex].gold = parseInt(twentyArray[resultIndex].gold) + parseInt(tempgold);
+			twentyArray[resultIndex].silver = parseInt(twentyArray[resultIndex].silver) + parseInt(tempsilver);
+			twentyArray[resultIndex].bronze = parseInt(twentyArray[resultIndex].bronze) + parseInt(tempbronze);
+			twentyArray[resultIndex].total = parseInt(twentyArray[resultIndex].total) + parseInt(twentymedalstemp);
+	    return;
+	}
+	
+	else
+	{  //we have not seen this sport before , so we need to create an entry to hold it
+		var twentyMedalBySportToAdd = {"sport":tempSport , "gold":tempgold, "silver":tempsilver, "bronze":tempbronze, "total":twentymedalstemp};
+		twentyArray.push(twentyMedalBySportToAdd);
+		return;
+	   	
+	} //end else statement 
+	} //end function AddTwentyMedals
+
+
+
+function addBronzeMedalsBySport(sport, numbronze)
+{
+   	var totalThisPass = 0; 
+	var tempbronzemedals = parseInt(numbronze);
+	var tempSport =  sport;
+	// first determine if this is a sport we have already seen , if yes increment the total number of medals 
+	// otherwise create a new bronzeMedalBySport object and append it to the list of bronze medals we know about
+	var resultIndex = -1;
+	var totalThisPass = numbronze;
+	 
+	if (bronzeArray.length > 0)
+	{
+		for ( var i in bronzeArray) 
+		{
+			if (bronzeArray[i].sport == sport)
+			{
+				resultIndex = i;
+				break;
+			}
+
+			else {   	continue;		}
+			
+
+		} //end for loop
+	} // end if statement
+		
+		else 
+		{	// we have not seen any sport before , so we need to create an entry to hold it
+			var bronzeMedalBySportObject = {"sport":tempSport,"numbronze":tempbronzemedals};
+			bronzeArray.push(bronzeMedalBySportObject);
+			return;
+		}
+
+	if ( resultIndex > -1 )
+	{      // the sport we are looking for is already in the array, update the total number of medals to reflect the new medals
+			bronzeArray[resultIndex].numbronze = parseInt(bronzeArray[resultIndex].numbronze) + parseInt(tempbronzemedals);
+	    return;
+	}
+	
+	else
+	{  //we have not seen this sport before , so we need to create an entry to hold it
+		var bronzeMedalBySportToAdd = {"sport":tempSport , "numbronze":tempbronzemedals};
+		bronzeArray.push(bronzeMedalBySportToAdd);
+		return;
+	   	
+	} //end else statement 
+	} // end method addBronzeMedalsBySport
+
+
+function addMedalsToCountry(country,gold,silver,bronze)
+{
+	var totalThisPass = 0; 
+	var tempmedalcountry = country;
+	var tempgoldmedals = parseInt(gold);
+	var tempsilvermedals = parseInt(silver);
+	var tempbronzemedals = parseInt(bronze);
+	// first determine if this is a country we have already seen , if yes increment the total number of medals 
+	// otherwise create a new county object and append it to the list of countries we know about
+	var countryWeAreLookingFor = country;
+	var resultIndex = -1;
+	var totalThisPass = gold + silver + bronze;
+	 
+	if (countryArray.length > 0)
+	{
+		for ( var i in countryArray) 
+		{
+			resultIndex = countryArray[i].country.indexOf(countryWeAreLookingFor);
+				if (countryArray[i].country == country) {
+				resultIndex = i;
+				break;
+			}
+
+			else 
+			     {   
+				//the country we are looking for was not found at this iteration so continue on
+			       continue;
+			     }
+			
+
+		} //end for loop
+	} // end if statement
+		
+		else 
+		{
+			//we have not seen this country before , so we need to create an entry to hold it
+			var countryObject1 = new countryObject(tempmedalcountry,tempgoldmedals,tempsilvermedals,tempbronzemedals,totalThisPass);
+			var countryToAdd = {"country":country , "goldmedals":tempgoldmedals, "silvermedals": tempsilvermedals, "bronzemedals":tempbronzemedals, "totalmedals": totalThisPass};
+			countryArray.push(countryToAdd);
+			return;
+						
+			
+			
+		}
+	
+
+	if ( resultIndex > -1 )
+	{
+	    // the country we are looking for is already in the array, update the total number of medals to reflect the new medals
+		countryArray[resultIndex].totalmedals = parseInt(countryArray[resultIndex].totalmedals + totalThisPass);
+		countryArray[resultIndex].goldmedals = parseInt(countryArray[resultIndex].goldmedals + gold);
+		countryArray[resultIndex].silvermedals = parseInt(countryArray[resultIndex].silvermedals + silver);
+		countryArray[resultIndex].bronzemedals = parseInt(countryArray[resultIndex].bronzemedals + bronze);
+		var totalGold = countryArray[resultIndex].goldmedals;
+		var totalSilver = countryArray[resultIndex].silvermedals;
+		var totalBronze = countryArray[resultIndex].bronzemedals;
+		var totalForThisCountry = countryArray[resultIndex].totalmedals;
+	    return;
+		
+	}
+	  else
+	{  //we have not seen this country before , so we need to create an entry to hold it
+		totalThisPass = gold + silver + bronze;
+		var countryToAdd = {"country":country , "goldmedals":tempgoldmedals, "silvermedals": tempsilvermedals, "bronzemedals":tempbronzemedals, "totalmedals": totalThisPass};
+		countryArray.push(countryToAdd);
+		return;
+	   	
+	} //end else statement 
+
+	
+}// end function addMedalsToCountry
+            </pre>
+        </div>
+          <div id="dropdown3" class="tab-pane fade">
+            <h3>SVG Functions Using D3</h3>
+            <pre>function drawPieChartV2(inputArray)
+{
+    var canvasWidth = 550, //width
+    canvasHeight = 550,   //height
+    outerRadius = 185,   //radius
+    color = d3.scale.category20(); //builtin range of colors
+
+  var dataSet = inputArray;
+  var labelLimit = 25; //this value will determine when we want to stop showing labels as they will overlap on our pie chart
+  
+  var vis = d3.select("#canvas")
+    .append("svg:svg") //create the SVG element inside the <body>
+      .data([dataSet]) //associate our data with the document
+      .attr("width", canvasWidth) //set the width of the canvas
+      .attr("height", canvasHeight) //set the height of the canvas
+      .append("svg:g") //make a group to hold our pie chart
+        .attr("transform", "translate(" + 1.25*outerRadius + "," + 1.25*outerRadius + ")") // relocate center of pie to 'outerRadius,outerRadius'
+
+  // Create path elements for us using arc data...
+  var arc = d3.svg.arc().outerRadius(outerRadius);
+  var pie = d3.layout.pie() //this will create arc data for us given a list of values
+    .value(function(d) { return d.totalmedals; }); 
+    // Binding each value to the pie
+    // Select all <g> elements with class slice (there aren't any yet)
+  var arcs = vis.selectAll("g.slice")
+    // Associate the generated pie data (an array of arcs, each having startAngle,
+    // endAngle and value properties) 
+    .data(pie)
+    // This will create <g> elements for every "extra" data element that should be associated
+    // with a selection. The result is creating a <g> for every object in the data array
+    .enter()
+    // Create a group to hold each slice (we will have a <path> and a <text>
+    // element associated with each slice)
+    .append("svg:g")
+    .attr("class", "slice");    //allow us to style things in the slices (like text)
+
+  arcs.append("svg:path")
+    //set the color for each slice to be chosen from the color function defined above
+    .attr("fill", function(d, i) { return color(i); } )
+    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+    .attr("d", arc);
+
+  // Add a legendLabel to each arc slice...
+  arcs.append("svg:text")
+    .attr("transform", function(d) { //set the label's origin to the center of the arc
+      //we have to make sure to set these before calling arc.centroid
+      d.outerRadius = outerRadius + 50 ; // Set Outer Coordinate
+      d.innerRadius = outerRadius + 45; // Set Inner Coordinate
+      return "translate(" + arc.centroid(d) + ")";
+    })
+    .attr("text-anchor", "middle") //center the text on it's origin
+    .style("fill", "black")
+    .style("font", "bold 14px Arial")
+    .text(function(d, i) { return dataSet[i].country;   })//get the label from our original data array
+    .style("visibility", function(d,i) {  return (i >= labelLimit) ? "hidden" : "visible";   });
+   
+  // Add a magnitude value to the larger arcs, translated to the arc centroid and rotated.
+  arcs.filter(function(d) { return d.endAngle - d.startAngle > .028; }).append("svg:text")
+    .attr("dy", ".35em")
+    .attr("text-anchor", "middle")
+    //.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
+    .attr("transform", function(d) { //set the label's origin to the center of the arc
+      //we have to make sure to set these before calling arc.centroid
+      d.outerRadius = outerRadius; // Set Outer Coordinate
+      d.innerRadius = outerRadius/2; // Set Inner Coordinate
+      return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")";
+    })
+    .style("fill", "White")
+    .style("font", "bold 14px Arial")
+    .text(function(d) { return d.data.totalmedals; });
+
+  // Computes the angle of an arc, converting from radians to degrees.
+  function angle(d) {
+    var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+    return a > 90 ? a - 180 : a;
+  }}
+            
+            
+     ******************************************************************************************************
+        function drawBarGraphV2(inputArray)
+   {
+		//Width and height
+		//var w = 800;
+		
+		
+		  var margin = {top: 30, right: 10, bottom: 30, left: 10};
+		  var width = parseInt(d3.select('#canvas2').style('width'), 10);
+		  var width = width - margin.left - margin.right;
+		  var height = 200; // placeholder
+		var h = 400;
+		var w =  width-50;
+		
+		
+		
+		
+		// var h = d3.select("#canvas2").style("height") 
+		var barPadding = 1;
+		
+		var dataset = inputArray
+		//Create SVG element
+		var svg = d3.select("#canvas2")
+					.append("svg")
+					.attr("id", "bargraph")
+					.attr("width", w)
+					.attr("height", h);
+
+		//select all of our rectangles and use the enter method to add them
+		svg.selectAll("rect")
+		   .data(d3.entries(dataset))
+		   .enter()
+		   .append("rect")
+		   .attr("x", function(d, i) {
+		   		return i * (w / inputArray.length);
+		   })
+		   .attr("y", function(d) {
+		   		return h - (d.value.numbronze * 4);
+		   })
+		   .attr("width", w / inputArray.length - barPadding)
+		   .attr("height", function(d) {
+		   		return d.value.numbronze * 8;
+		   })
+		   .attr("fill", function(d) {
+				return "rgb(0, 0, " + (d.value.numbronze * 10) + ")";
+		   })
+		 ;
+        // add text based labels to the graph
+		svg.selectAll("text")
+		   .data(d3.entries(dataset))
+		   .enter()
+		   .append("text")
+		   .text(function(d) {
+		   		return d.value.sport + " - " + d.value.numbronze;  })
+		    .attr("x", function(d, i) {  		return h + (d.value.numbronze * 4.1)  ; })
+		   	.attr("y", function(d , i) {	   			return  i * (w / inputArray.length);})
+		   	 .attr("transform", function(d) {       return "translate(20,800)rotate(-90)" })
+		   .attr("font-family", "sans-serif")
+		   .attr("font-size", "14px")
+		   .attr("font-weight","normal")
+		   .attr("fill", "black");
+		   
+   }
+   
+   
+   *******************************************************************************************
+   
+   function drawHeader()  {
+
+	var frontRingArray = 
+		[		
+			{"name":"blueringfront", "color":"#0085c7","radius":"100","backcircle":"0"},
+			{"name":"yellowringfront", "color":"#f4c300","radius":"100","backcircle":"0"},
+			{"name":"blackringfront", "color":"#000000","radius":"100","backcircle":"0"},
+			{"name":"greenringfront", "color":"#009f3d","radius":"100","backcircle":"0"},
+	    	{"name":"redringfront", "color":"df0024","radius":"100","backcircle":"0"}
+		];
+
+	var rearRingArray =
+		[
+	{"name":"blueringback", "color":"#0085c7","radius":"100","backcircle":"1"},
+	{"name":"yellowringback", "color":"#f4c300","radius":"100","backcircle":"1"},
+	{"name":"blackringback", "color":"#000000","radius":"100","backcircle":"1"},
+	{"name":"greenringback", "color":"#009f3d","radius":"100","backcircle":"1"},
+	{"name":"redringback", "color":"df0024","radius":"100","backcircle":"1"} 
+		 ];
+
+	  //var width = parseInt(d3.select('#canvas2').style('width'), 10);
+	//var w=390;
+	  var w = parseInt(d3.select('#olg-graphic').style('width'), 10);
+	var h=250;
+	var timer=4500;
+
+	var dsvg = d3.select("#olg-graphic")
+	.append("svg")
+	.attr("width", w)
+	.attr("height", h)
+	;
+	
+
+	var radius = 45; //radius of the rings
+	
+	var xoffset = radius+(radius/2); //calculate x offset for each circle
+
+	var frontcircles = dsvg.selectAll("circle")
+			.data(frontRingArray)
+			.enter()
+			.append("circle")
+			;
+			
+	frontcircles.attr("cx", function(d,i) {
+				var offsetter = (i+1)*xoffset;
+				return offsetter+((w/2)-(3*xoffset)); //Centers the circles to the SVG container
+				})
+			.attr("cy", function(d,i) {
+				var hRadius = radius/2;
+				return (i%2===0) ? h/2-hRadius : (h/2)+xoffset-hRadius; //Drop alternate circles lower
+				})
+			.attr("r", 55)
+			.style("stroke", function(d) {
+	            return d.color;
+				})
+			.style("fill", "none")
+			.style("stroke-width", radius/6);
+	
+	
+
+	
+	
+	
+	
+	
+	};
+          
             
             
             
-          </div>
+            </pre>
+        </div>
+    </div>
+</div>
+     
+        <div  class="col-md-6">
+            
+          </div><!-- end left column -->
+          
+        <!--   begin right column -->
+        
+        <div  class="col-md-6">
+   
+            </div> <!-- end right column -->
+            <div  class="col-md-6">
+
+            
+            </div> <!-- end lower panel -->
+       
+          </div> 
+          
+            
+          
+          
+          <!-- end theme showcase -->
           
           
           
         </div>
       </div>
 
-      <div id="results"></div>
+
         
 
   
@@ -198,6 +785,14 @@
     <script src="./Bootstrap_files/jquery.min.js"></script>
     <script src="./Bootstrap_files/bootstrap.min.js"></script>
     <script src="./Bootstrap_files/docs.min.js"></script>
+    <script type="text/javascript">
+$(document).ready(function(){ 
+    $("#myTab a").click(function(e){
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+});
+</script>
 
   
 

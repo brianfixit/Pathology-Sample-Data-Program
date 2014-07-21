@@ -8,6 +8,14 @@ $(document).ready(function ()
     var twentyArray = [];
     var twentyArrayRowNum = 0;
     
+    
+    window.addEventListener('resize', function(event)
+    		{ 
+    	        d3.select('#bargraph').remove();
+    	        drawBarGraphV2(bronzeArray);
+    		
+    		});
+    
 
 function bronzeMedalBySport(sport , numbronze)
 {
@@ -304,18 +312,104 @@ function addMedalsToCountry(country,gold,silver,bronze)
 }// end function addMedalsToCountry
 
 
+function drawHeader()  {
+
+	var frontRingArray = 
+		[		
+			{"name":"blueringfront", "color":"#0085c7","radius":"100","backcircle":"0"},
+			{"name":"yellowringfront", "color":"#f4c300","radius":"100","backcircle":"0"},
+			{"name":"blackringfront", "color":"#000000","radius":"100","backcircle":"0"},
+			{"name":"greenringfront", "color":"#009f3d","radius":"100","backcircle":"0"},
+	    	{"name":"redringfront", "color":"df0024","radius":"100","backcircle":"0"}
+		];
+
+	var rearRingArray =
+		[
+	{"name":"blueringback", "color":"#0085c7","radius":"100","backcircle":"1"},
+	{"name":"yellowringback", "color":"#f4c300","radius":"100","backcircle":"1"},
+	{"name":"blackringback", "color":"#000000","radius":"100","backcircle":"1"},
+	{"name":"greenringback", "color":"#009f3d","radius":"100","backcircle":"1"},
+	{"name":"redringback", "color":"df0024","radius":"100","backcircle":"1"} 
+		 ];
+
+	  //var width = parseInt(d3.select('#canvas2').style('width'), 10);
+	//var w=390;
+	  var w = parseInt(d3.select('#olg-graphic').style('width'), 10);
+	var h=250;
+	var timer=4500;
+
+	var dsvg = d3.select("#olg-graphic")
+	.append("svg")
+	.attr("width", w)
+	.attr("height", h)
+	;
+	
+
+	var radius = 45; //radius of the rings
+	
+	var xoffset = radius+(radius/2); //calculate x offset for each circle
+
+	var frontcircles = dsvg.selectAll("circle")
+			.data(frontRingArray)
+			.enter()
+			.append("circle")
+			;
+			
+	frontcircles.attr("cx", function(d,i) {
+				var offsetter = (i+1)*xoffset;
+				return offsetter+((w/2)-(3*xoffset)); //Centers the circles to the SVG container
+				})
+			.attr("cy", function(d,i) {
+				var hRadius = radius/2;
+				return (i%2===0) ? h/2-hRadius : (h/2)+xoffset-hRadius; //Drop alternate circles lower
+				})
+			.attr("r", 55)
+			.style("stroke", function(d) {
+	            return d.color;
+				})
+			.style("fill", "none")
+			.style("stroke-width", radius/6);
+	
+	
+
+	
+	
+	
+	
+	
+	};
+
+
+
+
+
+
+
 
    function drawBarGraphV2(inputArray)
    {
 		//Width and height
-		var w = 800;
+		//var w = 800;
+		
+		
+		  var margin = {top: 30, right: 10, bottom: 30, left: 10};
+		  var width = parseInt(d3.select('#canvas2').style('width'), 10);
+		  var width = width - margin.left - margin.right;
+		  var height = 200; // placeholder
 		var h = 400;
+		var w =  width-50;
+		
+		
+		
+		
+		// var h = d3.select("#canvas2").style("height") 
 		var barPadding = 1;
 		
 		var dataset = inputArray
 		//Create SVG element
 		var svg = d3.select("#canvas2")
 					.append("svg")
+					.attr("id", "bargraph")
 					.attr("width", w)
 					.attr("height", h);
 
@@ -344,10 +438,10 @@ function addMedalsToCountry(country,gold,silver,bronze)
 		   .enter()
 		   .append("text")
 		   .text(function(d) {
-		   		return d.value.sport + " " + d.value.numbronze;  })
+		   		return d.value.sport + " - " + d.value.numbronze;  })
 		    .attr("x", function(d, i) {  		return h + (d.value.numbronze * 4.1)  ; })
 		   	.attr("y", function(d , i) {	   			return  i * (w / inputArray.length);})
-		   	 .attr("transform", function(d) {       return "translate(25,800)rotate(-90)" })
+		   	 .attr("transform", function(d) {       return "translate(20,800)rotate(-90)" })
 		   .attr("font-family", "sans-serif")
 		   .attr("font-size", "14px")
 		   .attr("font-weight","bold")
@@ -360,7 +454,7 @@ function drawPieChartV2(inputArray)
 {
     var canvasWidth = 550, //width
     canvasHeight = 550,   //height
-    outerRadius = 185,   //radius
+    outerRadius = 200,   //radius
     color = d3.scale.category20(); //builtin range of colors
 
   var dataSet = inputArray;
@@ -408,14 +502,14 @@ function drawPieChartV2(inputArray)
     })
     .attr("text-anchor", "middle") //center the text on it's origin
     .style("fill", "black")
-    .style("font", "bold 14px Arial")
+    .style("font", "12px Arial")
     .text(function(d, i) { return dataSet[i].country;   })//get the label from our original data array
     .style("visibility", function(d,i) {  return (i >= labelLimit) ? "hidden" : "visible";   });
    
   // Add a magnitude value to the larger arcs, translated to the arc centroid and rotated.
   arcs.filter(function(d) { return d.endAngle - d.startAngle > .028; }).append("svg:text")
-    .attr("dy", ".35em")
-    .attr("text-anchor", "middle")
+    .attr("dy", ".30em")
+    .attr("text-anchor", "right")
     //.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
     .attr("transform", function(d) { //set the label's origin to the center of the arc
       //we have to make sure to set these before calling arc.centroid
@@ -432,6 +526,12 @@ function drawPieChartV2(inputArray)
     var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
     return a > 90 ? a - 180 : a;
   }}
+
+
+
+
+
+
 
 
 
@@ -516,6 +616,7 @@ function drawPieChartV2(inputArray)
                       drawBarGraphV2(bronzeArray);
                       //target the table body which already exists with our header row in the html and append the new rows
                       tableOutput();
+                      drawHeader();
                
                          return;
                       } 
