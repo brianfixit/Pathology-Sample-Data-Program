@@ -85,17 +85,16 @@ $(document).ready(function(){
             </ul>
         </li>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content" id="tabbody">
         <div id="sectionA" class="tab-pane fade in active">
-            <div class="panel panel-success">
+            <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">A Detailed Overview Of How This Web Page Is Generated</h3>
             </div>
          
           
                <div class="panel-body">
-                  <div class="alert alert-warning" role="alert">
-        <h3>The Operations Happen In This Order</h3></div>
+             <div class="col-md-8" id="tab1leftcolumn">
             
               <h4>This program uses a D3 to turn sample JSON data into arrays that are used as the data sources for creating SVG graphics.</h4>
        
@@ -149,10 +148,40 @@ $(document).ready(function(){
               
               </ul>
             </div>
-            </div>
+            <div class="col-md-4" id="tab1rightcolumn">     
+        
+             <div class="alert alert-success" role="alert">
+        <h4>Data Is Requested Via YQL</h4></div>
+        <hr />
+             <div class="alert alert-success" role="alert">
+        <h4>The Resultant Value Is Normalized And Parsed Into A JSON Array</h4></div>
+             <div class="alert alert-success" role="alert">
+        <h4>The JSON Array Is Parsed And The Values For The Required Arrays Are Identified And Stored</h4></div>
+        <hr />
+             <div class="alert alert-warning" role="alert">
+        <h4>SVG Graphics Are Created Using D3.js Linked To The Associative Arrays</h4></div>
+             <div class="alert alert-warning" role="alert">
+        <h4>The SVG Graphics Are Appended To Pre-Existing Div Elements In The HTML Code</h4></div>
+        <hr />
+             <div class="alert alert-danger" role="alert">
+        <h4>BootStrap Provides The Framework For Displaying This Information</h4></div>
+             <div class="alert alert-danger" role="alert">
+        <h4>The Header Graphic Is Programmed As An SVG Graphic With A Transition Effect</h4></div>
+       <hr />
+         <div class="alert alert-info" role="alert">
+        <h4>Tab Panels Are Used To Contain And Display Background Info.</h4></div>
+        <div class="alert alert-info" role="alert">
+        <h4>BootStrap's PRE tag is used to include code samples </h4></div>
         </div>
+         </div>
+        
+        
+        
+        </div>
+            </div>
+        
         <div id="sectionB" class="tab-pane fade">
-            <div class="panel panel-success">
+            <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Problems , Challenges & Opportunities Faced During This Exercise</h3>
             </div>
@@ -179,7 +208,7 @@ $(document).ready(function(){
             </div>
         </div>
                 <div id="sectionC" class="tab-pane fade">
-            <div class="panel panel-success">
+            <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Why You Should Hire Me!!!!</h3>
             </div>

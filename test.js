@@ -320,21 +320,14 @@ function drawHeader()  {
 			{"name":"yellowringfront", "color":"#f4c300","radius":"100","backcircle":"0"},
 			{"name":"blackringfront", "color":"#000000","radius":"100","backcircle":"0"},
 			{"name":"greenringfront", "color":"#009f3d","radius":"100","backcircle":"0"},
-	    	{"name":"redringfront", "color":"df0024","radius":"100","backcircle":"0"}
+	    	{"name":"redringfront", "color":"#df0024","radius":"100","backcircle":"0"}
 		];
 
-	var rearRingArray =
-		[
-	{"name":"blueringback", "color":"#0085c7","radius":"100","backcircle":"1"},
-	{"name":"yellowringback", "color":"#f4c300","radius":"100","backcircle":"1"},
-	{"name":"blackringback", "color":"#000000","radius":"100","backcircle":"1"},
-	{"name":"greenringback", "color":"#009f3d","radius":"100","backcircle":"1"},
-	{"name":"redringback", "color":"df0024","radius":"100","backcircle":"1"} 
-		 ];
 
-	  //var width = parseInt(d3.select('#canvas2').style('width'), 10);
-	//var w=390;
+	//  var width = parseInt(d3.select('#canvas2').style('width'), 10);
+	//var w=600;
 	  var w = parseInt(d3.select('#olg-graphic').style('width'), 10);
+	  
 	var h=250;
 	var timer=4500;
 
@@ -353,6 +346,8 @@ function drawHeader()  {
 			.data(frontRingArray)
 			.enter()
 			.append("circle")
+				.transition().duration(1500)
+    .attr('r', function(d){ return radius  * 2;})
 			;
 			
 	frontcircles.attr("cx", function(d,i) {
@@ -368,7 +363,9 @@ function drawHeader()  {
 	            return d.color;
 				})
 			.style("fill", "none")
-			.style("stroke-width", radius/6);
+			.style("stroke-width", radius/5);
+			
+
 	
 	
 
@@ -392,18 +389,18 @@ function drawHeader()  {
 		//var w = 800;
 		
 		
-		  var margin = {top: 30, right: 10, bottom: 30, left: 10};
+		  var margin = {top: 30, right: 00, bottom: 30, left: 00};
 		  var width = parseInt(d3.select('#canvas2').style('width'), 10);
 		  var width = width - margin.left - margin.right;
 		  var height = 200; // placeholder
 		var h = 400;
-		var w =  width-50;
+		var w =  width;
 		
 		
 		
 		
 		// var h = d3.select("#canvas2").style("height") 
-		var barPadding = 1;
+		var barPadding = 2;
 		
 		var dataset = inputArray
 		//Create SVG element
@@ -429,7 +426,7 @@ function drawHeader()  {
 		   		return d.value.numbronze * 8;
 		   })
 		   .attr("fill", function(d) {
-				return "rgb(0, 0, " + (d.value.numbronze * 10) + ")";
+				return "rgb(" + (d.value.numbronze * 10) + ", 17, 34)";
 		   })
 		 ;
         // add text based labels to the graph
@@ -458,7 +455,7 @@ function drawPieChartV2(inputArray)
     color = d3.scale.category20(); //builtin range of colors
 
   var dataSet = inputArray;
-  var labelLimit = 25; //this value will determine when we want to stop showing labels as they will overlap on our pie chart
+  var labelLimit = 28; //this value will determine when we want to stop showing labels as they will overlap on our pie chart
   
   var vis = d3.select("#canvas")
     .append("svg:svg") //create the SVG element inside the <body>
@@ -507,7 +504,7 @@ function drawPieChartV2(inputArray)
     .style("visibility", function(d,i) {  return (i >= labelLimit) ? "hidden" : "visible";   });
    
   // Add a magnitude value to the larger arcs, translated to the arc centroid and rotated.
-  arcs.filter(function(d) { return d.endAngle - d.startAngle > .028; }).append("svg:text")
+  arcs.filter(function(d) { return d.endAngle - d.startAngle > .04; }).append("svg:text")
     .attr("dy", ".30em")
     .attr("text-anchor", "right")
     //.attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")"; })
@@ -518,7 +515,7 @@ function drawPieChartV2(inputArray)
       return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")";
     })
     .style("fill", "White")
-    .style("font", "bold 14px Arial")
+    .style("font", "bold 13px Arial")
     .text(function(d) { return d.data.totalmedals; });
 
   // Computes the angle of an arc, converting from radians to degrees.
