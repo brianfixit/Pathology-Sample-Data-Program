@@ -378,7 +378,7 @@ function drawHeader()  {
 	            return d.color;
 				})
 			.style("fill", "none")
-			.style("stroke-width", radius/10);
+			.style("stroke-width", radius/12);
 		};
 
 
@@ -396,6 +396,7 @@ function drawd3pie(inputArray)
 	var pieArray = [];
 	var pieString = "[";
 	var pieEnd = "]";
+	var smallSegmentCutoff = 15;
 	// now use a for loop to populate pie.data.content with the vallues from our input array
 	
 	var thislabel =  inputArray[0].country;
@@ -424,31 +425,13 @@ function drawd3pie(inputArray)
 	
 	
 	var pie = new d3pie("#canvas", {
-		"header": {
-			"title": {
-				
-				"fontSize": 24,
-				"font": "open sans"
-			},
-			"subtitle": {
-				
-				"color": "#999999",
-				"font": "open sans"
-			},
-			"titleSubtitlePadding": 2
-		},
-		"footer": {
-			"color": "#999999",
-			"fontSize": 10,
-			"font": "open sans",
-			"location": "bottom-left"
-		},
+		
 		"size": {"canvasWidth":canvasWidth,"canvasHeight":canvasHeight,"pieOuterRadius":pieOuterRadius},
 		"data": {
 			"sortOrder": "value-desc",
 			"smallSegmentGrouping": {
 				"enabled": true,
-				"value": 22,
+				"value": smallSegmentCutoff,
 				"valueType": "value",
 				"label": "Sum of Non-Listed Countries",
 				"color":"#FF9900"

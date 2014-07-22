@@ -71,23 +71,45 @@
 <p>The purpose of this web site is to transform sample data related to the 2012 Olympic games and use it as the basis for creating SVG graphics using D3.js. The results are then to be displayed using Twitter BootStrap and javaScript</p></div> <!-- End Row -->
 <div class="row">
 <div id="hbar" class="col-sm-12"><h4 align="center">All of this site is done with with CSS, JavaScript And D3.js, Not ONE Image is used within!</h4></div>
- <div class="col-md-7"><!-- Canvas will contain our d3pie svg graphic --><div style="text-align:center" id="pieheader">
-        <h2>2012 Total Olympic Medals By Country</h2>
-        <h4>(For legibility all countries with less than 23 medals are grouped together)</h4>
+ <div class="col-md-7">
+ 
+ <!-- Canvas will contain our d3pie svg graphic --><div style="text-align:center" id="pieheader">
+         <h2>2012 Total Olympic Medals By Country</h2>
+        <p>(For legibility on small screens all countries with less than 15 medals are grouped together using d3pie's small segment grouping feature and labels stop at 1% of total value)</p>
+        
+        
                </div>
-      <div id="canvas" class="jumbotron" align="center">
+      <div id="canvas"  align="center">
       </div></div>
-  <div class="col-md-5" id="rightTable"><div style="height: 600px; overflow:scroll;">
-  <h2 align="center">Countries By Total Medals</h2>
-            <table class="table table-striped">
+   <div class="col-md-5" id="rightTableHeader"><h2 align="center">Countries By Total Medals</h2>
+            <table class="table">
                         <thead>
               <tr>
+                <th>Name Of Country In Data</th>
+                <th>Gold</th>
+                <th>Silver</th>
+                <th>Bronze</th>
+                <th>Totals</th>
+              </tr>
+             <tr><td>Place  Holder   For Val</td><td>0100</td><td>010</td><td>010</td><td>100</td></tr>
+            </thead>
+            <tbody id="countrydatahead" >
+            </tbody>
+          </table>
+  
+   
+   </div>    
+  <div class="col-md-5" id="rightTable">
+  
+            <table class="table table-striped">
+                        <thead>
+     <!--          <tr>
                 <th>Country</th>
                 <th>Gold</th>
                 <th>Silver</th>
                 <th>Bronze</th>
                 <th>Total</th>
-              </tr>
+              </tr> -->
             </thead>
             <tbody id="countrydata" >
             </tbody>
@@ -95,7 +117,7 @@
   
   
   
-  </div></div>
+  </div>
 <div id="hbar2" class="col-sm-12"> <h4 align="center"> Question 2 - Data Source - https://apps.mathbiol.org/sdata/</h4></div>        
   </div> <!-- End Second Row -->
 
