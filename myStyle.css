@@ -23,7 +23,7 @@
 #olg-graphic
 {
 	
-	background-color::#FF9900 !important ;
+	background-color:#f8e494 !important ;
 	padding:0px;
 	overflow:visible;
 	
@@ -53,6 +53,11 @@
     border-radius: 5px;
 }
 
+#canvas3
+{
+	
+}
+
 #canvas h2
 {
    text-align:center;
@@ -77,6 +82,7 @@
 	padding-left:10px;
 	padding-right:10px;
 	color:#fff;
+	
 }
 
 #hbar2
@@ -93,24 +99,35 @@
 	
 	
 #rightTable
-{   margin-top:10px;
+{   margin-top:0px;
     padding=top:0px;
-	padding-left:10px;
-	padding-right:10px;
-	padding-bottom:5px;
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:0px;
 	
 }
 
-	#canvas2
+#rightTable h2
+{   margin-top:10px;
+	padding-top:0px;
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:0px;
+	
+}
+
+
+
+#canvas2
 	{
 	margin-top:10px;
-	/* background-color:#FCFCFC; */
 	background-color:#f8e494;
 	padding-top:5px;
 	padding-bottom:5px;
 	padding-right: 20px;
     padding-left: 20px;
     border-radius: 5px;
+    display:block;
 }
 
 #dropdown1 h3

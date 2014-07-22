@@ -1,3 +1,9 @@
+/*Author: Brian Harris Project: Pathology Information Analyst Submission Date: July 2014 Intent:This file is meant to provide javascript funuctions using jQuery and D3.js to transform 
+sample data from https://apps.mathbiol.org/sdata/ to answer a series of programming tasks.
+Begin test.js*/	
+
+
+
 $(document).ready(function ()
 
  {
@@ -364,23 +370,140 @@ function drawHeader()  {
 				})
 			.style("fill", "none")
 			.style("stroke-width", radius/5);
-			
+		};
 
+
+
+
+
+function drawd3pie(inputArray)
+{
+// d3pie requires data in the form "label": "JavaScript", "value": 264131, "color": "#2484c1"
+	var pieArray = [];
+	var pieString = "[";
+	var pieEnd = "]";
+	// now use a for loop to populate pie.data.content with the vallues from our input array
+	
+	var thislabel =  inputArray[0].country;
+	var thisvalue = inputArray[0].totalmedals;
+	var tempdata = {"label": thislabel, "value": thisvalue};
+	pieString = pieString + '{ "label": ' + thislabel + ' , "value" :' +  thisvalue + ' }';
+	pieArray[0]= tempdata;
 	
 	
+	
+	for (var i = 1; i < inputArray.length; i++)
+		{   
+		var thislabel =  inputArray[i].country;
+		var thisvalue = inputArray[i].totalmedals;
+		console.log ('pushing ' + thislabel + ' + ' + thisvalue);
+		var tempdata = {"label": thislabel, "value": thisvalue};
+		/*pieString = ',{ \"label\": ' thislabel + ', \"value\"' + thisvalue +   '  }';*/
+		
+		pieString = pieString + ',{ "label": ' + thislabel + ' , "value" : ' + thisvalue + ' }';
+		pieArray[i]= tempdata;
+		console.log ( 'The length of the pie array is now ' + pieArray.length);
+		
+		}
+	
+	pieString = pieString + pieEnd;
+	//console.log(pieString);
+	 var piewidth = parseInt(d3.select('#canvas').style('width'), 10) - 20;
+	
+	
+	var pie = new d3pie("#canvas", {
+		"header": {
+			"title": {
+				
+				"fontSize": 24,
+				"font": "open sans"
+			},
+			"subtitle": {
+				
+				"color": "#999999",
+				"font": "open sans"
+			},
+			"titleSubtitlePadding": 2
+		},
+		"footer": {
+			"color": "#999999",
+			"fontSize": 10,
+			"font": "open sans",
+			"location": "bottom-left"
+		},
+		"size": {"canvasWidth":600,"canvasHeight":500,"pieOuterRadius":200},
+		"data": {
+			"sortOrder": "value-desc",
+			"smallSegmentGrouping": {
+				"enabled": true,
+				"value": 22,
+				"valueType": "value",
+				"label": "Sum of Non-Listed Countries",
+				"color":"#FF9900"
+			},
+			"content": pieArray	},
+		"labels": {
+			"outer": {
+				"pieDistance": 15,
+				"hideWhenLessThanPercentage": 1
+			},
+			"inner": {
+				"format": "value",
+				"hideWhenLessThanPercentage": 1
+			},
+			"mainLabel": {
+				"fontSize": 11
+			},
+			"percentage": {
+				"color": "#ffffff",
+				"decimalPlaces": 0
+			},
+			"value": {
+				"color": "#ffffff",
+				"fontSize": 12
+			},
+			"lines": {
+				"enabled": true
+			}
+		},
+		"effects": {
+			"pullOutSegmentOnClick": {
+				"effect": "linear",
+				"speed": 400,
+				"size": 8
+			}
+		},
+		"misc": {
+			"colors": {
+				"background": "#f8e494"
+			},
+			"gradient": {
+				"enabled": true,
+				"percentage": 100,
+				"color": "#201212"
+			}
+		},
+		"callbacks": {}
+	});// end constructor
 
+
+	
+	console.log ('exit d3pie for loop');
 	
 	
 	
 	
+	//pie.destroy();
+	//console.log('pie desstroyed');
+	//pie.redraw();
+	//console.log('pie redrawn');
+
+ 
 	
-	};
 
 
 
-
-
-
+}
 
 
    function drawBarGraphV2(inputArray)
@@ -389,27 +512,40 @@ function drawHeader()  {
 		//var w = 800;
 		
 		
-		  var margin = {top: 30, right: 00, bottom: 30, left: 00};
-		  var width = parseInt(d3.select('#canvas2').style('width'), 10);
+		  var margin = {top: 30, right: 20, bottom: 30, left: 20};
+		  var width = parseInt(d3.select('#canvas2').style('width'), 10) - 20;
 		  var width = width - margin.left - margin.right;
-		  var height = 200; // placeholder
+		  var height = 185; // placeholder
 		var h = 400;
 		var w =  width;
-		
-		
-		
-		
-		// var h = d3.select("#canvas2").style("height") 
+		var dataset = inputArray;
 		var barPadding = 2;
+		// establish scales for axises
+		var x = d3.scale.ordinal().rangeRoundBands([0, w], .05);
+		var y = d3.scale.linear().range([h, 0]);
 		
-		var dataset = inputArray
+		var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom")
+	    .tickFormat(function(d,i) { return dataset[i].country; });
+	
+		
+		var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+	    .ticks(10);
+		
+		 x.domain(dataset.map(function(d, i) { return dataset[i].country; }));
+		  y.domain([0, 100]);
+		
+					
 		//Create SVG element
 		var svg = d3.select("#canvas2")
 					.append("svg")
 					.attr("id", "bargraph")
 					.attr("width", w)
 					.attr("height", h);
-
+		
 		//select all of our rectangles and use the enter method to add them
 		svg.selectAll("rect")
 		   .data(d3.entries(dataset))
@@ -443,6 +579,27 @@ function drawHeader()  {
 		   .attr("font-size", "14px")
 		   .attr("font-weight","bold")
 		   .attr("fill", "black");
+		
+	//	add axises
+		 svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + h + ")")
+	      .call(xAxis)
+	    .selectAll("text")
+	      .style("text-anchor", "end")
+	      .attr("dx", "-.8em")
+	      .attr("dy", "-.55em")
+	      .attr("transform", "rotate(-90)" );
+
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text(function(d,i) {  return dataset[i].country; });
 		   
    }
 
@@ -608,12 +765,13 @@ function drawPieChartV2(inputArray)
                       //sort our twenty array for creating the html table
                       twentyArray = reverseSortByKey(twentyArray, 'total');
                       // create the pie chart and add it to our #canvas div
-                      drawPieChartV2(countryArray);
+                  //    drawPieChartV2(countryArray);
                       //create the bar graph and add it to our #canvas2 div
                       drawBarGraphV2(bronzeArray);
                       //target the table body which already exists with our header row in the html and append the new rows
                       tableOutput();
                       drawHeader();
+                      drawd3pie(countryArray);
                
                          return;
                       } 

@@ -67,14 +67,14 @@
 <div class="col-md-7 " id = "olg-graphic" align="center"></div>
 
 <div class="col-md-5 jumbotron" id = "AboutThisInfo" >
-<h3 align="center">Olympic Sample Data Driven Web Site</h3><h3 align="center"> by Brian Harris , July 2014</h3>
-<h4 style ="padding:10px;">The purpose of this web site is to transform sample data related to the 2012 Olympic games and use it as the basis for creating SVG graphics using D3.js. The results are then to be displayed using Twitter BootStrap and javaScript</h4></div> <!-- End Row -->
+<h3 align="center">Olympic Sample Data Driven Web Site</h3><h4 align="center" style="padding-top:0px; padding-bottom:0px;margin:0px;"> by <strong>Brian Harris</strong> , July 2014</h4>
+<h4 style ="padding-left:10px;padding-right:10px;">The purpose of this web site is to transform sample data related to the 2012 Olympic games and use it as the basis for creating SVG graphics using D3.js. The results are then to be displayed using Twitter BootStrap and javaScript</h4></div> <!-- End Row -->
 <div class="row">
 <div id="hbar" class="col-sm-12"><h4 align="center">All of this site is done with with CSS, JavaScript And D3.js, Not ONE Image is used within!</h4></div>
  <div class="col-md-7"><!-- Main jumbotron will contain our SVG graphics -->
       <div id="canvas" class="jumbotron" align="center"><div style="text-align:center">
-        <h2>2012 Olympic Medals By Country</h2>
-        <h4>(Display of labels stops at 28 for legibility)</h4>
+        <h2>2012 Total Olympic Medals By Country</h2>
+        <h4>(For legibility all countries with less than 23 medals are grouped together)</h4>
                </div>
       </div></div>
   <div class="col-md-5" id="rightTable"><div style="height: 600px; overflow:scroll;">
@@ -100,11 +100,17 @@
   </div> <!-- End Second Row -->
 
 
-<div id="canvas2" class="jumbotron">
+<div id="canvas2" class="col-sm-12">
         <h2 align="center">Sports By Number Of Bronze Medals - Responsive Chart</h2>
         <h3 align="center">(Resize your browser and the bar graph will be redrawn)</h3>
                
       </div>
+      
+
+      
+      
+      
+      
      <div class="page-header">
         <h2>Medals For 22-29 Year Old Athletes Sorted Descending By Total</h2>
       </div>
@@ -137,6 +143,7 @@
   
     <!-- Placed at the end of the document so the pages load faster -->
    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>.
+   <script src="d3pie.min.js"></script>
     <script src="./Bootstrap_files/jquery.min.js"></script>
     <script src="./Bootstrap_files/bootstrap.min.js"></script>
     <script src="./Bootstrap_files/docs.min.js"></script>
