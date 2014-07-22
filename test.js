@@ -13,12 +13,19 @@ $(document).ready(function ()
     var bronzeArray=[];
     var twentyArray = [];
     var twentyArrayRowNum = 0;
-    
+    var thisd3pie=0;
     
     window.addEventListener('resize', function(event)
     		{ 
     	        d3.select('#bargraph').remove();
     	        drawBarGraphV2(bronzeArray);
+    	        thisd3pie.destroy();
+    	    	//console.log('pie desstroyed');
+    	        //thisd3pie.redraw();
+    	    	//console.log('pie redrawn');
+    	        drawd3pie(countryArray);
+    	        d3.select('#header').remove();
+    	        drawHeader();
     		
     		});
     
@@ -322,10 +329,10 @@ function drawHeader()  {
 
 	var frontRingArray = 
 		[		
-			{"name":"blueringfront", "color":"#0085c7","radius":"100","backcircle":"0"},
-			{"name":"yellowringfront", "color":"#f4c300","radius":"100","backcircle":"0"},
+			{"name":"blueringfront", "color":"#2476ab","radius":"100","backcircle":"0"},
+			{"name":"yellowringfront", "color":"#FF9900","radius":"100","backcircle":"0"},
 			{"name":"blackringfront", "color":"#000000","radius":"100","backcircle":"0"},
-			{"name":"greenringfront", "color":"#009f3d","radius":"100","backcircle":"0"},
+			{"name":"greenringfront", "color":"#58891e","radius":"100","backcircle":"0"},
 	    	{"name":"redringfront", "color":"#df0024","radius":"100","backcircle":"0"}
 		];
 
@@ -334,20 +341,22 @@ function drawHeader()  {
 	//var w=600;
 	  var w = parseInt(d3.select('#olg-graphic').style('width'), 10);
 	  
-	var h=250;
+	//var h=250;
+	  var h = w /2;
 	var timer=4500;
 
 	var dsvg = d3.select("#olg-graphic")
 	.append("svg")
+	.attr("id", "header")
 	.attr("width", w)
 	.attr("height", h)
 	;
 	
 
-	var radius = 45; //radius of the rings
+	var radius = w /6; //radius of the rings
 	
-	var xoffset = radius+(radius/2); //calculate x offset for each circle
-
+	//var xoffset = radius+(radius/2); //calculate x offset for each circle
+	var xoffset = radius - radius /3;
 	var frontcircles = dsvg.selectAll("circle")
 			.data(frontRingArray)
 			.enter()
@@ -369,7 +378,7 @@ function drawHeader()  {
 	            return d.color;
 				})
 			.style("fill", "none")
-			.style("stroke-width", radius/5);
+			.style("stroke-width", radius/10);
 		};
 
 
@@ -379,6 +388,11 @@ function drawHeader()  {
 function drawd3pie(inputArray)
 {
 // d3pie requires data in the form "label": "JavaScript", "value": 264131, "color": "#2484c1"
+	var piewidth = parseInt(d3.select('#canvas').style('width'), 10) - 20;
+	var padValue = 100;
+	var canvasWidth = piewidth;
+	var canvasHeight = piewidth;
+	var pieOuterRadius = piewidth / 2 - padValue;
 	var pieArray = [];
 	var pieString = "[";
 	var pieEnd = "]";
@@ -396,19 +410,17 @@ function drawd3pie(inputArray)
 		{   
 		var thislabel =  inputArray[i].country;
 		var thisvalue = inputArray[i].totalmedals;
-		console.log ('pushing ' + thislabel + ' + ' + thisvalue);
+	//	console.log ('pushing ' + thislabel + ' + ' + thisvalue);
 		var tempdata = {"label": thislabel, "value": thisvalue};
-		/*pieString = ',{ \"label\": ' thislabel + ', \"value\"' + thisvalue +   '  }';*/
-		
 		pieString = pieString + ',{ "label": ' + thislabel + ' , "value" : ' + thisvalue + ' }';
 		pieArray[i]= tempdata;
-		console.log ( 'The length of the pie array is now ' + pieArray.length);
+		//console.log ( 'The length of the pie array is now ' + pieArray.length);
 		
 		}
 	
 	pieString = pieString + pieEnd;
 	//console.log(pieString);
-	 var piewidth = parseInt(d3.select('#canvas').style('width'), 10) - 20;
+	 
 	
 	
 	var pie = new d3pie("#canvas", {
@@ -431,7 +443,7 @@ function drawd3pie(inputArray)
 			"font": "open sans",
 			"location": "bottom-left"
 		},
-		"size": {"canvasWidth":600,"canvasHeight":500,"pieOuterRadius":200},
+		"size": {"canvasWidth":canvasWidth,"canvasHeight":canvasHeight,"pieOuterRadius":pieOuterRadius},
 		"data": {
 			"sortOrder": "value-desc",
 			"smallSegmentGrouping": {
@@ -497,7 +509,7 @@ function drawd3pie(inputArray)
 	//console.log('pie desstroyed');
 	//pie.redraw();
 	//console.log('pie redrawn');
-
+	thisd3pie = pie; // pass this back to the global variable so we can redraw on resize
  
 	
 
