@@ -342,7 +342,7 @@ function drawHeader()  {
 	  var w = parseInt(d3.select('#olg-graphic').style('width'), 10);
 	  
 	//var h=250;
-	  var h = w /2;
+	  var h = w /2.5;
 	var timer=4500;
 
 	var dsvg = d3.select("#olg-graphic")
@@ -373,7 +373,7 @@ function drawHeader()  {
 				var hRadius = radius/2;
 				return (i%2===0) ? h/2-hRadius : (h/2)+xoffset-hRadius; //Drop alternate circles lower
 				})
-			.attr("r", 55)
+			.attr("r", radius/2)
 			.style("stroke", function(d) {
 	            return d.color;
 				})
